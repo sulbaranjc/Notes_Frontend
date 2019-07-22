@@ -13,7 +13,11 @@ export default class CreateUser extends Component {
 
   getUser = async () => {
     const res = await axios.get("http://localhost:4000/api/users");
-    this.setState({ user: res.data });
+    const listUsuarios = res.data;
+    listUsuarios.sort((unUser, otroUser) =>
+      unUser.username.localeCompare(otroUser.username)
+    );
+    this.setState({ user: listUsuarios });
   };
 
   onChangeUsername = e => {
