@@ -7,21 +7,31 @@ export default class CreateNote extends Component {
   state = {
     users: [],
     userSelected: "",
+    title: "",
+    content: "",
     date: new Date()
   };
 
   async componentDidMount() {
     const res = await axios.get("http://localhost:4000/api/users");
-    this.setState({ users: res.data.map(user => user.username) });
+    // this.setState({ users: res.data.map(user => user.username) });
+    const listUser = res.data.map(user => user.username);
+    listUser.sort();
+    // console.log(listUser);
+    this.setState({ users: listUser });
   }
 
   onSubmit = e => {
+    console.log(this.state.title, this.state.content);
     e.preventDefault();
   };
 
   onInputChange = e => {
     // console.log(e.target.value);
-    this.setState({ userSelected: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+    // this.setState({ userSelected: e.target.value });
   };
 
   onChangeDate = date => {
@@ -53,6 +63,7 @@ export default class CreateNote extends Component {
               className="form-control"
               placeholder="title"
               name="title"
+              onChange={this.onInputChange}
               required
             />
             <div className="form-group">
@@ -60,6 +71,7 @@ export default class CreateNote extends Component {
                 name="content"
                 className="form-control"
                 placeholder="Content"
+                onChange={this.onInputChange}
                 required
               />
             </div>

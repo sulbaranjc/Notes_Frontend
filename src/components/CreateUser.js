@@ -55,7 +55,7 @@ export default class CreateUser extends Component {
               </button>
             </form>
           </div>
-          from user
+          {/* from user */}
         </div>
         <div className="col-md-8">
           <ul className="list-group">
